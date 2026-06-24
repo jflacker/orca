@@ -11,16 +11,16 @@ jobs:
       matrix:
         go: ["1.26"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
         with: { go-version: "${{ matrix.go }}" }
       - run: go build ./...
       - run: go test -race ./...   # network e2e excluded (no -tags e2e)
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
         with: { go-version: "1.26" }
       # Build golangci-lint from source with the runner's Go so it isn't older
       # than this module's Go version (prebuilt releases lag bleeding-edge Go).
