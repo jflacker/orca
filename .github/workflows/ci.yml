@@ -22,4 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with: { go-version: "1.26" }
-      - uses: golangci/golangci-lint-action@v6
+      # Build golangci-lint from source with the runner's Go so it isn't older
+      # than this module's Go version (prebuilt releases lag bleeding-edge Go).
+      - run: go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.12.2
+      - run: $(go env GOPATH)/bin/golangci-lint run ./...
